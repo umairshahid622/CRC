@@ -1,0 +1,46 @@
+<!--<div class="row topSearch" >-->
+<!--    <div class="col-md-12 p-1">-->
+<!--        <p-card>-->
+<!--            <input type="text" class="form-control" pInputText [(ngModel)]="search"-->
+<!--                   (keyup.enter)="getData()" placeholder="Search Here">-->
+<!--            <i class="pi pi-search searchIcon" (click)="getData()"></i>-->
+<!--        </p-card>-->
+<!--    </div>-->
+<!--</div>-->
+<div class="col-md-12 topSearch">
+    <p-card>
+        <input type="text"  class="form-control" pInputText placeholder="Search Here" [(ngModel)]="search" (keydown.enter)="getData()" style="width: 100%;">
+        <i class="pi pi-search searchIcon" (click)="getData()"></i>
+    </p-card>
+</div>
+<!---->
+<div class="row full-height" >
+    <div class="col-md-12 d-flex justify-content-center" *ngIf="isLoading" style="padding-top: 150px;">
+<!--        <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"-->
+<!--                           fill="var(&#45;&#45;surface-ground)" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>-->
+        <div class="loader"></div>
+    </div>
+
+    <div class="row pt-20" *ngIf="!isLoading">
+        <div class="col-md-4 zoom col-sm-12 col-xl-3" *ngFor="let product of PRODUCTS" cdkDrag>
+            <div class="card myCard " style="margin: 5px 10px;">
+                <div class="iconDiv">
+                    <img src="assets/svgs/migrat.svg" style="height: 5vh">
+                </div>
+                <div class="cardContent">
+                    <img  *ngIf="product.image !== '--'" src="{{product.image}}" alt="" class="circle-image">
+                    <img  *ngIf="product.image === '--'" src="assets/layout/images/noimage.png" alt="" class="circle-image">
+                    <a href="{{product.url_user}}" target="{{product.url_user}}" style="margin-left: 7px">{{product.username}}</a><br>
+                    <label style="color: gray;padding-left: 0px;padding-top: 20px;">{{"Posted:"}}{{product._dt}}</label>
+                    <br><br>
+                    <p style="color: #333333;font-size: 14px;word-wrap: break-word;font-family: 'Montserrat', sans-serif">{{product.tweet}}</p>
+                    <a href="{{product.urlMain}}" target="{{product.urlMain}}"style="font-size: 12.5px!important;line-height: 16px !important;white-space: normal !important; word-wrap: break-word!important ; color:#00d3e9!important;">{{product.urlMain}}</a>
+                    <br>
+                    <label style="color: gray;padding-left: 0px;padding-top: 20px;">{{"Tags:"}}{{product.tags}}</label>
+                    <br>
+                    <label style="color: gray;padding-left: 0px;padding-top: 20px;">{{"Alexa Rank:"}}{{product.alexaRank}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

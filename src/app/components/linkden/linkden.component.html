@@ -1,0 +1,55 @@
+<main>
+    <video src="assets/videos/video.mp4" autoplay loop>
+    </video>
+
+    <div class="content">
+
+        <img class="logo mb-4" width="60px" height="60px" src="assets\svgs\noun-search-1133221.svg" alt="">
+        <h2>Osint Seacher</h2>
+        <h4>Free Social Media Search Engine</h4>
+        <div class="col-12 col-md-8 mt-5">
+            <div style="display: flex;">
+                <div class="my-tabs" (click)="tabClick(item)" *ngFor="let item of tabs">
+                    <div style="display: flex;">
+
+                        <p  [ngClass]="selectedTab == item ? 'active-tab':'none'">{{item}}</p>
+                        <div style="width: 10px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="search-field col-12 col-md-8">
+                    <input type="text" name="" id="">
+                    <img width="30px" height="30px" src="assets\svgs\noun-search-1133221.svg" alt="">
+                </div>
+                <div class="mt-4 mt-md-0 ms-0 ms-md-3 col-12 col-md-3">
+                    <div #clickoutEvent class="my-dropdown">
+                        <div class="dropDownSelect">
+                            <p>
+                                {{selectedOption}}
+                            </p>
+                            <img *ngIf="dropDownOpen == false ;else dropDownClose" width="30px" height="30px"
+                                 src="assets\svgs\noun-chevron-down-1988107.svg" alt="">
+                            <ng-template #dropDownClose >
+                                <img (click)="toogleDropDown()" width="30px" height="30px"
+                                     src="assets\svgs\noun-chevron-up-1988112.svg" alt="">
+                            </ng-template>
+                        </div>
+                        <div *ngIf="dropDownOpen == true" @fade>
+                            <div  class="dropdownOptions">
+                                <div (click)="selectVal(item.name)" *ngFor="let item of dropDoownOptions">
+                                    <div style="height: 5px;"></div>
+                                    <p>
+                                        {{item.name}}
+                                    </p>
+                                    <div style="height: 10px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

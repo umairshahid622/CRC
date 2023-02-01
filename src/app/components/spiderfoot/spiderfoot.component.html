@@ -1,0 +1,145 @@
+<div class="col-md-12 topSearch">
+    <p-card>
+        <input type="text" pInputText placeholder="Search Here" [(ngModel)]="search" (keyup.enter)="Runscan()" style="width: 100%;">
+    </p-card>
+</div>
+<div class="grid">
+    <div class="col-12">
+        <div class="card ">
+            <h5>Scan Info</h5>
+            <p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                GUID
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Seed Target
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Created at
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Ended at
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex justify-content-between align-items-center">
+                                Status
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer>
+                    <tr>
+                        <td style="min-width: 12rem; color: #1ab394">
+                            {{customer.guid}}
+                        </td>
+
+                        <td style="min-width: 14rem; color: red">
+                            {{customer.seed_target}}
+                        </td>
+                        <td style="min-width: 10rem;color: dodgerblue">
+                            {{customer.created}}
+                        </td>
+                        <td style="min-width: 10rem; color: green">
+                            {{customer.ended}}
+                        </td>
+                        <td style="min-width: 12rem;">
+                            <button  style="border-radius: 50px ;color: green"> {{customer.status}}</button>
+                        </td>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="7">No Record found.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="7">Loading customers data. Please wait.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <h5>Scan Results</h5>
+                <p-table #dt1 [value]="Result" dataKey="id" [rows]="10"  [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>
+                                <div class="flex justify-content-between align-items-center">
+                                    ScanInstances
+                                </div>
+                            </th>
+                            <th>
+                                <div class="flex justify-content-between align-items-center">
+                                    Type
+                                </div>
+                            </th>
+                            <th>
+                                <div class="flex justify-content-between align-items-center">
+                                    Confidence
+                                </div>
+                            </th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customer>
+                        <tr>
+                            <td style="min-width: 12rem;color: #1ab394">
+                                {{customer.scan_instance}}
+                            </td>
+                            <td (click)="openDialog(customer)"style="min-width: 12rem;">
+                                {{customer.type}}
+                            </td>
+                            <td (click)="openDialog(customer)" style="min-width: 14rem;">
+                                {{customer.confidence}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="7">No Record found.</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="loadingbody">
+                        <tr>
+                            <td colspan="7">Loading data. Please wait.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<p-dialog [(visible)]="display" header="Scan Results"[transitionOptions]="'2ms'" [style]="{width: '50vw'}">
+    <p-panel  [toggleable]="true"><!-- created a toggleable pannel using primeng -->
+        <p-table #dt [value]="selectedElement?.extra_data" dataKey="id" styleClass="ui-table-customers" [rowHover]="true"
+                 [rows]="10" [showCurrentPageReport]="true"
+                 [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                 [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th width="8%">Data</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product1>
+                <tr>
+                    <td (click)="openDialog(product1)">{{product1.data}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-panel>
+</p-dialog>
+

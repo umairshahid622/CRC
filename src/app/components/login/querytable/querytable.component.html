@@ -1,0 +1,109 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <div class="logoo">
+            <img class="logo" src="assets/layout/images/ORCABOLD.png" alt="">
+        </div>
+        <button class="btn btn-light" routerLink="/pages/login">
+            <img style="padding-top: 2px;" width="30px" height="30px" src="assets/svgs/noun-logout-2028508.svg" alt="">
+            Logout
+        </button>
+    </div>
+</nav>
+<main>
+    <div class="mt-5 navigation-btn">
+        <button class="btn btn-light" [disabled]="!isDisable" routerLink="/">
+            <img width="60px" height="60px" src="assets/svgs/noun-house-16506.svg" alt=""><br>
+            <p>Dashboard</p>
+        </button>
+        <div style="width: 30px;"></div>
+        <button class="btn btn-light" routerLink="/pages/search">
+            <img width="60px" height="60px" src="assets/svgs/noun-search-1133221.svg" alt=""><br>
+            <p>Search</p>
+        </button>
+    </div>
+    <div class="container mt-4">
+        <h4>User Search History:</h4>
+        <hr>
+    </div>
+    <div class="mt-4 container">
+        <p-table #dt [value]="search" dataKey="id" id="table" selectionMode="multiple" styleClass="ui-table-customers"
+            [rowHover]="true" [rows]="7" [showCurrentPageReport]="true" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+            [globalFilterFields]="['name','country.name','representative.name','status']">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">Search History<p-sortIcon field="name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="name">Source<p-sortIcon field="name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="status">Time<p-sortIcon field="likescount"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="status">Status<p-sortIcon field="RetweetsCount"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="status">
+                        Delete
+                    </th>
+                    <th pSortableColumn="status">
+                        Refresh
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-search>
+
+                <tr class="ui-selectable-row list">
+                    <td>
+                        <span>{{search.text}}</span>
+                    </td>
+                    <td>
+                        <span>{{search.source}}</span>
+                    </td>
+                    <td>
+                        <span>{{search.time}}</span>
+                    </td>
+                    <td>
+                        <span [ngClass]="search.status" class="status">{{search.status}}</span>
+                    </td>
+                    <td>
+                        <button (click)="deletequery(search)" class="btn btn-outline-danger"><i
+                                class="pi pi-trash"></i></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-info"><i class="pi pi-sync"></i></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8" style="text-align:left">No Record found.</td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+</main>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+<p-toast position="top-right"></p-toast>
+<p-messages [value]="msgs"></p-messages>
+<!--<table class="table">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th scope="col">#</th>-->
+<!--        <th scope="col">Search History</th>-->
+<!--        <th scope="col">Status</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr *ngFor="let item of search;let i = index">-->
+<!--        <th scope="row">{{i+1}}</th>-->
+<!--        <td>{{item.text}}</td>-->
+<!--        <td>-->
+<!--            <div [ngClass]="item.status">-->
+<!--                {{item.status}}-->
+<!--            </div>-->
+<!--        </td>-->
+<!--    </tr>-->
+
+<!--    </tbody>-->
+<!--</table>-->
+<!--<button pButton pRipple label="Goto Dashboard" class="w-full p-3 text-xl" [disabled]="!isDisable" [routerLink]="'/'"></button>-->

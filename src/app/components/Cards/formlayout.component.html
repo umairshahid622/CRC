@@ -1,0 +1,128 @@
+<div class="row">
+    <div class="col-md-8 col-xl-8 p-1">
+        <input type="text" class="form-control" style="" pInputText [(ngModel)]="search" placeholder="Search Here" (keyup.enter)="getinfo()">
+        <i class="pi pi-search searchIcon" (click)="getinfo()"></i>
+    </div>
+    <div class="col-md-3 col-xl-3 p-1" style="border-radius: 14px!important;padding-left: 14px !important;">
+                <p-dropdown [options]="searchTypes" [(ngModel)]="searchType"
+                            class="col-md-6" optionLabel="title" >
+                </p-dropdown>
+    </div>
+</div>
+<br>
+<hr>
+<br>
+<div class="flex align-items-center">
+    <span style="margin-right: 8px">Search History:</span>
+    <p-chip label="COAS" styleClass="mr-2"  [removable]="true"></p-chip>
+    <p-chip label="Imrankhanpti" styleClass="mr-2" [removable]="true"></p-chip>
+    <p-chip label="Blacklivematters" styleClass="mr-2"  [removable]="true"></p-chip>
+    <p-chip label="imported gov na manzoor" styleClass="mr-2" [removable]="true"></p-chip>
+</div>
+<br>
+<div class="flex align-items-center">
+    <span class="mr-2" style="margin-left: 5px">Filter Tweets :</span>
+    <div>
+        <p-checkbox name="groupname" styleClass="mr-1"  value="Positive" [(ngModel)]="selectedValues"></p-checkbox>
+        <span class="mr-1">Positive</span>
+    </div>
+    <div>
+        <p-checkbox name="groupname" styleClass="mr-1"  value="Negative" [(ngModel)]="selectedValues"></p-checkbox>
+        <span class="mr-1">Negative</span>
+    </div>
+    <div>
+        <p-checkbox name="groupname" styleClass="mr-1"  value="Neutral" [(ngModel)]="selectedValues"></p-checkbox>
+        <span class="mr-1">Neutral</span>
+    </div>
+</div>
+<br>
+<hr>
+<div class="row full-height">
+
+    <div class="col-md-12 d-flex justify-content-center" *ngIf="isLoading" style="padding-top: 150px;" >
+        <div class="loader"></div>
+    </div>
+    <div  class="col-md-12 d-flex justify-content-center" *ngIf="isLoading" style="padding-top: 0px;">
+        <span>Fetching Data Please Wait.......</span><br>
+    </div>
+    <div class="col-md-12" *ngIf="!isLoading && searchType.value === 'username'">
+        <div class="row">
+            <!--        <div class="col-md-12">-->
+            <div class="card col-md-12 col-lg-12" *ngFor="let profile of Profile">
+                <div class="container-fluid">
+                    <div class="bio">
+                        <img src="{{profile.profile_banner_url}}" alt="background" class="bg" style="width: 100%;height: 40vh;border-radius: 10px">
+                    </div>
+                    <div class="avatarcontainer">
+                        <img src="{{profile.profile_image_url}}" alt="avatar" class="avatar" style=" border-radius: 50px;height: 100px;width:100px;padding-top: 0px; margin-top: -42px; margin-left: 38px;">
+                        <div class="hover1">
+                            <div class="icon-twitter"></div>
+                        </div>
+                    </div>
+                    <div class="myclass" style="padding-left: 40px">
+                        <ul style="font-weight: 800">{{profile.username}}</ul>
+                        <ul><label style="color: grey">{{profile.name}}</label></ul>
+                        <ul><label style="color: grey">{{profile.description}}</label></ul>
+                        <div class="row">
+                            <div class="col-md-4 col-xl-3 col-sm-3 col-lg-3 p-1"  cdkDrag>
+                                <ul><img src="assets/images/location.png">{{profile.location}}</ul>
+                            </div>
+                            <div class="col-md-4 col-xl-3 col-sm-3 col-lg-3 p-1"  cdkDrag>
+                                <ul style="font-size: 12.5px"><img src="assets/images/joiningDate.png"style="height: 20px; width: 20px;">{{profile.profile_created}}</ul>
+                            </div>
+                            <div class="col-md-4 col-xl-3 col-sm-3 col-lg-3 p-1"  cdkDrag>
+                                <ul><img src="assets/images/link.png" style="height: 20px; width: 20px;">{{profile.url}}</ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-xl-3 col-sm-3 col-lg-3 p-1"  cdkDrag>
+                                <ul> <span>{{profile.following_count}}</span> Following</ul>
+                            </div>
+                            <div class="col-md-3 col-xl-3 col-sm-3 col-lg-3 p-1"  cdkDrag>
+                                <ul><span>{{profile.followers_count}}</span> Followers</ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-12 d-flex justify-content-center" *ngIf="!isLoading && PRODUCTS.length === 0" style="padding-top: 150px;">
+        <span>No record Found</span>
+    </div>
+<div class="row pt-20" style="margin-top: 0px;padding-left: 80px;margin-left: 0px;"*ngIf="!isLoading">
+    <div class="col-md-4 col-xl-3 col-sm-12" style="position: relative; height: 490px;" *ngFor="let product of PRODUCTS">
+        <div class="wrapper">
+            <div class="profile">
+              <a href="{{product.link}}" target="{{product.link}}"><img  src="{{product.profile_image_url_https}}"  class="thumbnail zoom1"></a>
+                <div class="colorDiv" [ngClass]="product?.result[0]"></div>
+                <h3 class="name zoom1">{{product.username}}</h3>
+                <p class="title zoom1">{{"Posted:"}}{{product._dt}}</p>
+
+                <p class="description zoom1" style="font-size: 14px;word-wrap: break-word;overflow: scroll;height: 90px; text-overflow: ellipsis;
+        overflow: hidden;" >{{product.tweet}}</p>
+            </div>
+            <div class="social-icons zoom1">
+                <div class="icon">
+                    <a href="/"><i><img src="assets/svgs/heart.svg" style="height: 2.5vh"></i></a>
+                    <h4 class="zoom1">{{product.likes_count}}</h4>
+                    <p class="zoom1">Likes</p>
+                </div>
+                <div class="icon">
+                    <a href="#"><i><img src="assets/svgs/Retweet%20(2).svg" style="height: 2.5vh"></i></a>
+                    <h4 class="zoom1">{{product.retweets_count}}</h4>
+                    <p class="zoom1">Retweets</p>
+                </div>
+                <div class="icon">
+                    <a href="#"><i><img src="assets/svgs/Comment.svg" style="height: 2.5vh"></i></a>
+                    <h4 class="zoom1">{{product.replies_count}}</h4>
+                    <p class="zoom1">Comments</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--</div>-->
+
+</div>
+</div>

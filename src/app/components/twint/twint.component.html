@@ -1,0 +1,103 @@
+<div class="row topSearch">
+    <div class="col-md-8 topSearch">
+        <input type="text" pInputText placeholder="Search Here" [(ngModel)]="search" (keydown.enter)="getinfo()"
+            style="width: 100%;">
+    </div>
+    <div class="col-md-4 col-xl-4 col-sm-4" style="border-radius: 14px!important;padding-left: 14px !important;">
+        <p-dropdown [options]="searchTypes" [(ngModel)]="searchType" class="col-md-8 col-sm-8 col-md-8"
+            optionLabel="title">
+        </p-dropdown>
+    </div>
+</div>
+<div class="flex align-items-center">
+    <span style="margin-right: 8px">Search History:</span>
+    <p-chip label="COAS" styleClass="mr-2" [removable]="true"></p-chip>
+    <p-chip label="Imrankhanpti" styleClass="mr-2" [removable]="true"></p-chip>
+    <p-chip label="Blacklivematters" styleClass="mr-2" [removable]="true"></p-chip>
+    <p-chip label="imported gov na manzoor" styleClass="mr-2" [removable]="true"></p-chip>
+</div>
+<br>
+<div class="flex align-items-center">
+    <span class="mr-2" style="margin-left: 5px">Filter Tweets :</span>
+    <div>
+        <p-checkbox name="groupname" styleClass="mr-1" value="Positive" [(ngModel)]="selectedValues"></p-checkbox>
+        <span class="mr-1">Positive</span>
+    </div>
+    <div>
+        <p-checkbox name="groupname" styleClass="mr-1" value="Negative" [(ngModel)]="selectedValues"></p-checkbox>
+        <span class="mr-1">Negative</span>
+    </div>
+    <div>
+        <p-checkbox name="groupname" styleClass="mr-1" value="Neutral" [(ngModel)]="selectedValues"></p-checkbox>
+        <span class="mr-1">Neutral</span>
+    </div>
+</div>
+<br>
+<hr>
+<div class="col-md-12 d-flex justify-content-center" *ngIf="isLoading" style="padding-top: 150px;">
+    <div class="loader"></div>
+</div>
+<div class="col-md-12 d-flex justify-content-center" *ngIf="isLoading" style="padding-top: 20px;">
+    <span>Fetching Data Please Wait.......</span><br>
+</div>
+
+<div class="row mt-5 d-flex justify-content-center" *ngIf="!isLoading">
+    <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-3" *ngFor="let product of PRODUCTS">
+        <div class="card mt-4">
+            <div class="card-head">
+                <div>
+                    <div class="color-Div zoom1" [ngClass]="product.result[0]">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-img card-body scrollbar-hidden">
+                <a href="{{product.link}}" target="{{product.link}}"> <img class="rounded-circle zoom1"
+                        [src]="product.profile_image_url_https" style="width: 80px;margin-left: -18px;" /></a>
+                <br>
+                <br>
+                <h5 class="name1 zoom1"> {{product.username}}</h5>
+                <p class="title1 zoom1">{{"Posted:"}}{{product._dt}}</p>
+                <p class="zoom1">{{product.tweet}}</p>
+                <!--                <img src="{{product[0].photos}}" alt="Tweetpic" style="width:150px">-->
+            </div>
+            <div class="container">
+                <hr>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <div>
+                    <a href="#"><i><img src="assets/svgs/heart.svg" width="25px" height="25px"></i></a>
+
+                    <h5 class="zoom1">
+                        {{product.likes_count}}
+                    </h5>
+                    <p class="zoom1">
+                        likes
+                    </p>
+                </div>
+                <div>
+                    <a href="#"><i><img width="25px" height="25px" src="assets/svgs/Retweet%20(2).svg"></i></a>
+                    <h5 class="zoom1">
+                        {{product.retweets_count}}
+                    </h5>
+                    <p class="zoom1">
+                        Replay
+                    </p>
+                </div>
+                <div>
+                    <a href="#"><i><img src="assets/svgs/Comment.svg" width="25px" height="25px"></i></a>
+                    <h5 class="zoom1">
+                        {{product.replies_count}}
+                    </h5>
+                    <p class="zoom1">
+                        Comments
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 d-flex justify-content-center" *ngIf="!isLoading && PRODUCTS.length === 0"
+    style="padding-top: 150px;">
+    <span>No record Found</span>
+</div>

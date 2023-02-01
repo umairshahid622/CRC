@@ -1,0 +1,161 @@
+<div class="row mt-0">
+    <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+        <div class="card">
+            <div style="text-align: center;">
+                <h2>FILTER</h2>
+            </div>
+            <hr style="width: 100%; margin: 2px 0px;">
+            <div>
+                <p class="mt-5 mb-2" style="font-weight: 600;font-size: large;">Select platform</p>
+                <p-dropdown (onChange)="dropdownValue()" [options]="plateforms" [(ngModel)]="plateform"
+                    placeholder="Select" optionLabel="name"></p-dropdown>
+            </div>
+            <ng-container *ngIf="sentiments === true">
+                <p class="mt-5 mb-2" style="font-weight: 600;font-size: large;">Select Sentiments</p>
+                <div style="display: flex; justify-content: space-between;">
+                    <ng-container *ngFor="let item of sentimentValues">
+                        <div style="display: flex;gap: 0.2rem;">
+                            <input name="{{item}}" type="checkbox" (click)="getSentimentValue($event,item)">
+                            <label style="font-weight: bold; text-transform: capitalize;"
+                                for="{{item}}">{{item}}</label>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+            <!-- <hr style="width: 100%; margin: 50px 0px;"> -->
+        </div>
+    </div>
+    <ng-container *ngIf="plateform.name === 'All'|| plateform.name ==='Twitter' ">
+        <div style="position: relative;" class="col-md-6 col-lg-4 col-xl-4 col-xxl-3 d-flex justify-content-center"
+            *ngFor="let product of PRODUCTS">
+            <div class="card">
+                <div class="card-head">
+                    <div>
+                        <div class="color-Div zoom1" [ngClass]="product.result[0]">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-img card-body scrollbar-hidden">
+                    <a href="{{product.link}}" target="{{product.link}}"> <img class="rounded-circle zoom1"
+                            [src]="product.profile_image_url_https" style="width: 80px;margin-left: -18px;" /></a>
+                    <br>
+                    <br>
+                    <h5 class="name1 zoom1"> {{product.username}}</h5>
+                    <p class="title1 zoom1">{{"Posted:"}}{{product._dt}}</p>
+                    <p class="zoom1">{{product.tweet}}</p>
+                </div>
+                <div class="container">
+                    <hr>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <div>
+                        <img src="assets/svgs/heart.svg" alt="">
+                        <h5 class="mt-1">{{product.likes_count}}</h5>
+                        <p>likes</p>
+                    </div>
+                    <div>
+                        <img src="assets/svgs/Retweet%20(2).svg" alt="">
+                        <h5 class="mt-1">{{product.retweets_count}}</h5>
+                        <p>Replay</p>
+                    </div>
+                    <div>
+                        <img src="assets/svgs/Comment.svg" alt="">
+                        <h5 class="mt-1">{{product.replies_count}}</h5>
+                        <p>Comments</p>
+                    </div>
+                </div>
+            </div>
+            <i class="pi pi-twitter my-icon" style="color: blue;"></i>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="plateform.name === 'All'|| plateform.name ==='Reddit'">
+        <div style="position: relative;" class="col-md-6 col-lg-4 col-xl-4 col-xxl-3" *ngFor="let item of redditCards">
+            <div class="card">
+                <div class="card-img card-body scrollbar-hidden">
+                    <img style="object-fit: cover;" width="80px" height="80px"
+                        *ngIf="item.img === 'None';else imgPortion" src="assets\download.jpeg" alt="">
+                    <ng-template #imgPortion>
+                        <img width="80px" height="80px" class="rounded-circle"
+                            style="object-fit: cover; border-radius: 50%;" alt=".." class="user-image"
+                            src="{{item.img}}">
+                    </ng-template>
+                    <h5 class="name1 zoom1"> {{item.postdate}}</h5>
+                    <p class="zoom1">{{item.posts}}</p>
+                </div>
+                <div class="container">
+                    <hr>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <div>
+                        <img src="assets\svgs\trophy-svgrepo-com.svg" alt="">
+                        <p class="mt-3">{{item.awards}}</p>
+                        <p>awards</p>
+                    </div>
+                    <div>
+                        <img src="assets\svgs\vote-svgrepo-com.svg" alt="">
+                        <p class="mt-3">{{item.votes}}</p>
+                        <p>votes</p>
+                    </div>
+                    <div>
+                        <img src="assets/svgs/Comment.svg" alt="">
+                        <p class="mt-3">{{item.comments}}</p>
+                        <p>Comments</p>
+                    </div>
+                </div>
+            </div>
+            <i class="pi pi-reddit my-icon" style="color: red;"></i>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="plateform.name === 'All'">
+        <div style="position: relative;" class="col-md-6 col-lg-4 col-xl-4 col-xxl-3"
+            *ngFor="let item of youtube.video_results">
+            <div class="card">
+                <div class="card-img card-body scrollbar-hidden">
+                    <a href="{{item.channel.link}}" target="_blank" style="width: 85px;height: 85px;">
+                        <img class="rounded-circle" style="object-fit: cover;" width="80px" height="80px" 
+                        [src]="item.channel.thumbnail" alt="">
+                    </a>
+                    
+                    <div style="display: flex;align-items: center;gap: 5px;">
+                        <h5 style="text-align: center;">{{item.channel.name}}</h5>
+                        <div class="verified" *ngIf="item.channel.verified === true">
+                            <i class="pi pi-check" style="color: white;font-weight: bold;"></i>
+                        </div>
+                    </div>
+                    <!-- <h5 style="text-align: center;">{{item.channel.name}} <span class="verified"><i class="pi pi-check"></i></span></h5> -->
+                    <h6 class="mt-2" style="text-align: center;">{{item.title}}</h6>
+                    <p class="title1 zoom1" style="line-height: 0;">{{"Posted:"}}{{item.published_date}}</p>
+                    <p class="title1 zoom1" style="line-height: 0;">{{"Source:"}}{{youtube.search_parameters.engine}}
+                    </p>
+                    <p class="title1 zoom1" style="line-height: 0;">
+                        {{"Keyword:"}}{{youtube.search_parameters.search_query}}
+                    </p>
+                    <!-- <iframe  height="200" src="https://www.youtube.com/embed/y881t8ilMyc" frameborder="0" allowfullscreen></iframe> -->
+                    <!-- <iframe width="200px" height="200px" [src]="item.link" frameborder="0"></iframe> -->
+                </div>
+                <div class="container">
+                    <hr>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <div>
+                        <img src="assets\svgs\eye-svgrepo-com.svg" alt="">
+                        <p class="mt-3">{{item.views}}</p>
+                        <p>Views</p>
+                    </div>
+                    <div>
+                        <img src="assets\svgs\stats-svgrepo-com.svg" alt="">
+                        <p class="mt-3">{{item.position_on_page}}</p>
+                        <p>Position</p>
+                    </div>
+                    <div>
+                        <img src="assets/svgs/hourglass-svgrepo-com.svg" alt="">
+                        <p class="mt-3">{{item.length}}</p>
+                        <p>Length</p>
+                    </div>
+                </div>
+            </div>
+            <i class="pi pi-youtube my-icon" style="color: red;"></i>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,330 @@
+.full-height {
+    min-height: 100vh;
+}
+
+.firstDiv {
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.secondDiv {
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.thirdDiv {
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    //background-image: url("src/assets/chart-img.png");
+}
+
+.pt-20 {
+    padding-top: 20px;
+}
+
+.myCard {
+    padding: 35px;
+    border-radius: 40px !important;
+    max-height: 400px;
+    min-height: 400px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.cardContent {
+    max-height: 300px;
+    min-height: 300px;
+    overflow: scroll;
+}
+
+.cardContent::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.cardContent {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.iconDiv {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    border-radius: 50% !important;
+    top: -12px;
+    left: -15px;
+    background: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 700;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.colorDiv {
+    background: gray;
+    position: absolute;
+    border-radius: 50% !important;
+    right: 20px;
+    top: 10px;
+    border: 2px solid #cccccc;
+    width: 23px;
+    height: 23px;
+    display: inline-block;
+}
+
+
+
+:host::ng-deep .ui-dropdown {
+    background-size: 0 2px, 100% 1px;
+    background: transparent linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, #bdbdbd, #bdbdbd) no-repeat 50% 100%, 50% 100%;
+    transition: background-size 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+    padding-bottom: 2px;
+    box-sizing: border-box;
+    border-radius: 0;
+    margin-top: 0px;
+    height: 40px;
+    border: 1px solid #cdcdcd;
+}
+
+.searchIcon {
+    position: absolute;
+    top: 11px;
+    right: 19px;
+}
+.dashboard-card {
+    .card {
+        min-height: 82px !important;
+        max-height: 82px !important;
+    }
+}
+
+.dashboard .colorbox .colorbox-name {
+    margin: 0px !important;
+}
+
+.name-circle {
+    height: 50px;
+    width: 50px;
+    background-color: #017efa;
+    border-radius: 50%;
+    text-align: center;
+    padding: 16px;
+    color: white;
+}
+
+.circle-image {
+    height: 80px;
+    width: 80px;
+    margin-left: 2px;
+    border-radius: 50%;
+}
+
+.tweet-description {
+    h4 {
+        margin: 0;
+        font-weight: bold;
+    }
+    p {
+        margin: 0 0 10px 0;
+        height: 40px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    div {
+        text-align: right;
+        padding: 10px 13px;
+    }
+}
+
+
+:host::ng-deep .ui-dropdown-label-container .ui-dropdown-label{
+    text-overflow: ellipsis;
+}
+
+.form-control {
+    border: 1px solid #cdcdcd;
+    background-image: none;
+    height: 42px;
+    border-radius: 4px;
+
+    &:focus {
+        border: 1px solid #cdcdcd;
+    }
+}
+
+
+:host::ng-deep .ui-dropdown {
+    width: 100% !important;
+    border-radius: 24px !important;
+}
+.zoom:hover{
+    -ms-transform: scale(1.03); /* IE 9 */
+    -webkit-transform: scale(1.03); /* Safari 3-8 */
+    transform: scale(1.03);
+}
+.zoom{
+    transition: transform .1s;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+    border-radius: 24px;}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #FFF;
+    background-clip: border-box;
+    border: 3px solid rgba(0, 0, 0, .125);
+}
+/////////////
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    box-shadow: 1px 1px 10px 1px #a1a1a1;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.main-profile {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.user-info img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.user-info h3 {
+    font-size: 1.3rem;
+}
+
+.user-info p {
+    color: #5b7083;
+}
+
+.follow-btn button {
+    font-size: 1.5rem;
+    border: 3px solid #1da1f2;
+    border-radius: 25px;
+    background-color: rgba(29, 161, 242, 0);
+    padding: 8px 20px;
+    margin: 5px;
+    font-weight: bold;
+    color: #1da1f2;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.follow-btn button:hover {
+    background-color: rgba(29, 161, 242, 0.2);
+}
+
+.user-bio {
+    color: #0f1419;
+    margin-bottom: 10px;
+}
+
+.user-bio a {
+    color: #1da1f2;
+    text-decoration: none;
+}
+
+.user-bio a:hover {
+    text-decoration: underline;
+}
+
+.user-follows {
+    display: flex;
+    color: #5b7083;
+}
+
+.user-follows div {
+    margin-right: 10px;
+}
+
+.user-follows b {
+    color: black;
+}
+//
+
+.Positive {
+    background: green !important;
+}
+
+.Neutral {
+    background: yellow !important;
+}
+
+.Negative {
+    background: red !important;
+}
+
+.loader {
+    border: 16px solid seashell;
+    border-radius: 50%;
+    border-top: 16px solid slateblue;
+    border-bottom: 16px solid slateblue;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+:host::ng-deep {
+    .topSearch {
+        margin-bottom: 30px;
+
+        .p-card-body {
+            height: 80px !important;
+
+            .p-card-content {
+                padding: 0 !important;
+            }
+        }
+    }
+}

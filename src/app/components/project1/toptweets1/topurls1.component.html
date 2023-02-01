@@ -1,0 +1,36 @@
+<div class="col-md-12 col-xl-12 col-sm-12 col-lg-12 p-1 zoom1" cdkDrag>
+    <p-panel header="Top Tweets" [toggleable]="true" >
+        <p-table #dt1 [value]="topTweets"  id="table1" selectionMode="multiple"  dataKey="id" styleClass="ui-table-customers" [rowHover]="true"
+                 [rows]="4" [showCurrentPageReport]="true"
+                 [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                 [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name"><p-sortIcon field="name"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-tweet>
+                <tr class="ui-selectable-row">
+                    <td style="height: 120px; display: flex;" >
+                        <img src="{{tweet.profile_image_url_https}}" alt="" class="circle-image zoom">
+                        &nbsp;
+                        <div class="tweet-description zoom1">
+                            <h4>{{tweet.name}}</h4>
+                            <p>
+                                {{tweet.tweet}}
+                            </p>
+                            <div>
+                                {{tweet._dt}}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8" style="text-align:left">No Record found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-panel>
+</div>

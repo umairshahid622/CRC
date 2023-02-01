@@ -1,0 +1,496 @@
+<!--<div class="col-md-12 topSearch">-->
+<!--    <p-card>-->
+<!--        <input type="text" pInputText placeholder="Search Here For Analytics" [(ngModel)]="searchString" (keydown.enter)="getData()" style="width: 100%;">-->
+<!--    </p-card>-->
+<!--</div>-->
+<div class="col-md-12 d-flex justify-content-center" *ngIf="loading" style="padding-top: 150px;" >
+    <div class="loader"></div>
+</div>
+<div class="row full-height">
+<div class="row" *ngIf="!loading && datacontent ">
+    <div class="col-md-4 p-1 zoom1 cardTop ">
+        <p-card>
+            <ng-template pTemplate="p-card-content">
+                <div class="overview-content clearfix">
+                    <span class="overview-title">Total tweets</span>
+                    <span class="overview-badge">+%90</span>
+                    <span class="overview-detail" *ngIf="sentiment">{{sentiment[0]['total_tweet']}}</span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <img height="42px" src="assets/svgs/sales.svg" style="width: 100%; object-fit: cover;">
+            </ng-template>
+        </p-card>
+    </div>
+    <div class="col-md-4 p-1 zoom1 cardTop1">
+        <p-card>
+            <ng-template pTemplate="p-card-content">
+                <div class="overview-content clearfix">
+                    <span class="overview-title">Unique User</span>
+                    <span class="overview-detail" *ngIf="sentiment">{{sentiment[0]['unique_user']}}</span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <img  height="42px" src="assets/svgs/views.svg" style="width: 100%; object-fit: cover;">
+            </ng-template>
+        </p-card>
+        <!-- <p-card>
+            <ng-template pTemplate="p-card-content">
+                <div class="overview-content clearfix">
+                    <span class="overview-title">Unique User</span>
+                    <span class="overview-detail" *ngIf="sentiment">{{sentiment[0]['unique_user']}}</span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <img src="assets/svgs/views.svg" style="width: 100%; object-fit: cover;">
+
+            </ng-template>
+        </p-card> -->
+    </div>
+    <div class="col-md-4 p-1 zoom1 cardTop2">
+        <p-card >
+            <ng-template pTemplate="p-card-content">
+                <div class="overview-content clearfix">
+                    <span class="overview-title">Overall Sentiment Analysis</span>
+                    <span class="overview-detail"*ngIf="sentiment">{{sentiment[0]['sentiment']}}</span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="footer" style="height:150px!important;">
+                <br>
+                <img src="assets/svgs/progress.svg" style="width: 100%; object-fit: cover;">
+<!--                <p-progressBar [value]="30" style="width: 100%;margin-top:-30px"></p-progressBar>-->
+            </ng-template>
+        </p-card>
+    </div>
+</div>
+<!--//START OF ROW1//-->
+<div class="row" *ngIf="!loading &&  datacontent">
+    <div class="col-md-12 col-xl-12 col-sm-12 col-lg-12 p-2 lineChart zoom1" cdkDrag>
+        <p-panel header="Data Crawling" [toggleable]="true" >
+            <p-chart type="line" [data]="lineStylesData"  [options]="basicOptions"></p-chart>
+<!--            <p-selectButton [options]="paymentOptions" [(ngModel)]="value2" multiple="multiple" optionLabel="name" optionValue="value"></p-selectButton>-->
+<!--            <p-chart type="line" [data]="lineStylesData" *ngIf="value2.value==='monthly'" [options]="basicOptions"></p-chart>-->
+<!--            <p-chart type="line" [data]="lineStylesData1"  *ngIf="value2.value==='day'" [options]="basicOptions"></p-chart>-->
+<!--            <p-chart type="line" [data]="lineStylesData2" *ngIf="value2.value==='time'" [options]="basicOptions"></p-chart>-->
+
+        </p-panel>
+        
+</div>
+</div>
+
+    <div class="row" *ngIf="!loading &&  datacontent ">
+        <div class="col-md-12 col-xl-12 col-sm-12 col-lg-12 p-2 lineChart zoom1" cdkDrag>
+            <p-panel header="Sentiment-Analysis" [toggleable]="true" >
+                <p-selectButton [options]="paymentOptions" [(ngModel)]="value3" optionLabel="name" optionValue="value"></p-selectButton>
+                <!--                <p-chart type="line" [data]="lineStylesData" [options]="basicOptions" [width]="viewMode() === 'desktop' ? '100%' : '100%'" [height]="viewMode() === 'desktop' ? '50%' : '80%'"></p-chart>-->
+                <p-chart type="line" [data]="basicData" [options]="basicOptions"></p-chart>
+            </p-panel>
+        </div>
+    </div>
+
+
+<div class="row" *ngIf="!loading && datacontent">
+    <div class="top-tweets col-md-12 col-xl-6 col-sm-12 col-lg-12 p-1 zoom1" cdkDrag> <!-- created a column and used angular material draggable. -->
+        <div pDraggable="pnl"  dragHandle=".p-panel-titlebar">
+            <p-panel header="Top Users" [toggleable]="true"><!-- created a toggleable pannel using primeng -->
+                <p-table #dt [value]="customers" dataKey="id" id="table" selectionMode="multiple" styleClass="ui-table-customers" [rowHover]="true"
+                         [rows]="7" [showCurrentPageReport]="true"
+                         [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                         [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+                    <ng-template pTemplate="caption">
+<!--                        <div class="flex">-->
+<!--                            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="download()" class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>-->
+<!--                        </div>-->
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="name">TopUsers <p-sortIcon field="name"></p-sortIcon></th>
+                            <th pSortableColumn="status">likes Count <p-sortIcon field="likescount"></p-sortIcon></th>
+                            <th pSortableColumn="status">Retweets Count <p-sortIcon field="RetweetsCount"></p-sortIcon></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customer>
+                        <tr class="ui-selectable-row">
+                            <td style="height: 70px; display: flex;">
+                                <img src="{{customer.picture}}" alt="" class="circle-image zoom" style="height: 50px!important; width: 50px!important;border-radius: 50%!important;">
+                                <span style="padding: 16px">{{customer.username}}</span>
+                            </td>
+                            <td [style.color]="getColor(customer.likes_count)">
+                                <span>{{customer.likes_count}}</span>
+                            </td>
+                            <td>
+                                <span>{{customer.retweet_count}}</span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8" style="text-align:left">No Record found.</td>
+                        </tr>
+
+                    </ng-template>
+                </p-table>
+            </p-panel>
+        </div>
+    </div>
+    <div class="top-tweets col-md-12 col-xl-6 col-sm-12 col-lg-12 p-1 zoom1" cdkDrag>
+        <p-panel header="Top Tweets" [toggleable]="true" >
+            <p-table #dt1 [value]="topTweets"  id="table1" selectionMode="multiple"  dataKey="id" styleClass="ui-table-customers" [rowHover]="true"
+                     [rows]="4" [showCurrentPageReport]="true"
+                     [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                     [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name"><p-sortIcon field="name"></p-sortIcon></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-tweet>
+                    <tr class="ui-selectable-row">
+                        <td style="height: 120px; display: flex;" (click)="openDialog(tweet)" >
+                            <img src="{{tweet.profile_image_url_https}}" alt="" class="circle-image zoom">
+                            &nbsp;
+                            <div class="tweet-description zoom1">
+                                <h4>{{tweet.name}}</h4>
+                                <p>
+                                    {{tweet.tweet}}
+                                </p>
+                                <div>
+                                    {{tweet._dt}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8" style="text-align:left">No Record found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-panel>
+    </div>
+</div>
+    <div class="row" *ngIf="!loading && datacontent">
+        <div class="neg-pos-users col-md-12 col-xl-6 col-sm-12 col-lg-12 p-1 zoom1" cdkDrag> <!-- created a column and used angular material draggable. -->
+            <div pDraggable="pnl"  dragHandle=".p-panel-titlebar">
+                <p-tabView>
+                    <p-tabPanel header="Top Hahtags">
+                            <p-table #dt [value]="cutomershastags" dataKey="id" id="table124" selectionMode="multiple" styleClass="ui-table-customers" [rowHover]="true"
+                                     [rows]="7" [showCurrentPageReport]="true"
+                                     [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                     [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+                                <ng-template pTemplate="caption">
+                                    <!--                        <div class="flex">-->
+                                    <!--                            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="download()" class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>-->
+                                    <!--                        </div>-->
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th pSortableColumn="name">Top-Hashtags <p-sortIcon field="tophashtags"></p-sortIcon></th>
+                                        <th pSortableColumn="status"> Hashtag-Count <p-sortIcon field="usagecount"></p-sortIcon></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-customer>
+                                    <tr class="ui-selectable-row">
+                                        <td style="height: 70px; display: flex;">
+                                            <span style="padding: 16px">{{customer.hashtag}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{customer.hashtag_count}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="8" style="text-align:left">No Record found.</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                    </p-tabPanel>
+                    <p-tabPanel header="Top Url's">
+                        <p-table #dt [value]="customers1" dataKey="id" id="table1235" selectionMode="multiple" styleClass="ui-table-customers" [rowHover]="true"
+                                 [rows]="7" [showCurrentPageReport]="true"
+                                 [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                 [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+                            <ng-template pTemplate="caption">
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="name">URL's <p-sortIcon field="urls"></p-sortIcon></th>
+                                    <th pSortableColumn="status">Total Visits <p-sortIcon field="totalvisits"></p-sortIcon></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-customer>
+                                <tr class="ui-selectable-row">
+                                    <td style="height: 70px; display: flex;">
+                                        <span style="padding: 16px">{{customer.hashtag}}</span>
+                                    </td>
+                                    <td>
+                                        {{customer.uiquevists}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8" style="text-align:left">No Record found.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </p-tabPanel>
+                </p-tabView>
+
+            </div>
+        </div>
+        <div class="neg-pos-users col-md-12 col-xl-6 col-sm-12 col-lg-12 p-1 zoom1" cdkDrag> <!-- created a column and used angular material draggable. -->
+            <div pDraggable="pnl"dragHandle=".p-panel-titlebar">
+                <p-tabView>
+                    <p-tabPanel header="Top Positive User">
+                            <p-table #dt1 [value]="mentions"  id="table1236" selectionMode="multiple"  dataKey="id" styleClass="ui-table-customers" [rowHover]="true"
+                                     [rows]="4" [showCurrentPageReport]="true"
+                                     [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                     [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th pSortableColumn="name"><p-sortIcon field="name"></p-sortIcon></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-tweet>
+                                    <tr class="ui-selectable-row">
+                                        <td style="height: 120px; display: flex;" (click)="openDialog(tweet)" >
+<!--                                            <img src="{{tweet.profile_image_url_https}}" alt="" class="circle-image zoom">-->
+<!--                                            &nbsp;-->
+<!--                                            <div class="tweet-description zoom1">-->
+<!--                                                <h4>{{tweet.name}}</h4>-->
+<!--                                                <p>-->
+<!--                                                    {{tweet.tweet}}-->
+<!--                                                </p>-->
+<!--                                                <div>-->
+<!--                                                    {{tweet._dt}}-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+                                            <div class="d-flex list" (click)="openDialog(tweet)">
+                                                <div class="profile-img">
+                                                    <img class="rounded-circle" width="65px" height="65px" src="assets/layout/images/noimage.png" alt="">
+                                                    <div class="notify">
+                                                        {{tweet.notificationCount}}
+                                                    </div>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <h6>{{tweet.name}}</h6>
+                                                    <div class="d-flex"
+                                                         style="align-items: center;filter: invert(38%) sepia(88%) saturate(1303%) hue-rotate(202deg) brightness(99%) contrast(94%);">
+                                                        <img width="22px" height="22px" src="assets\svgs\noun-share-3772303.svg" alt="">
+                                                        <span class="ms-1" style="font-weight: bold;"> {{tweet.socialLink}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ms-5">
+                                                    <div class="d-flex" style="line-height: 1;">
+                                                        <img style="filter: invert(38%) sepia(88%) saturate(1303%) hue-rotate(202deg) brightness(99%) contrast(94%);"
+                                                             width="22px" height="22px" src="assets/layout/images/profile.jpg" alt="profile">
+                                                        <p class="ms-3">{{tweet.date}}</p>
+                                                        <p class="ms-3">{{tweet.time}}</p>
+                                                    </div>
+                                                    <div class="d-flex" style="line-height: 0;">
+                                                        <div class="d-flex" style="align-items: center;">
+                                                            <img width="22px" height="22px" src="assets\svgs\noun-like-1122324.svg" alt="">
+                                                            <span class="ms-1 mb-1">
+                                    {{tweet.likes}}
+                                </span>
+                                                        </div>
+                                                        <div class="d-flex ms-4" style="align-items: center;">
+                                                            <img width="22px" height="22px" src="assets\svgs\noun-comment-1026803.svg" alt="">
+                                                            <span class="ms-1 mb-1">
+
+                                    {{tweet.comments}}
+                                </span>
+                                                        </div>
+                                                        <div class="d-flex ms-4" style="align-items: center;">
+                                                            <img width="22px" height="22px" src="assets\svgs\noun-replay-3949162.svg" alt="">
+                                                            <span class="ms-1 mb-1">
+                                    {{tweet.replays}}
+                                </span>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="8" style="text-align:left">No Record found.</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                    </p-tabPanel>
+                    <p-tabPanel header="Top Negative Users">
+                        <p-table #dt1 [value]="topTweets"  id="table12367" selectionMode="multiple"  dataKey="id" styleClass="ui-table-customers" [rowHover]="true"
+                                 [rows]="4" [showCurrentPageReport]="true"
+                                 [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                 [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+                            <ng-template pTemplate="caption">
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="name"><p-sortIcon field="name"></p-sortIcon></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-tweet>
+                                <tr class="ui-selectable-row">
+                                    <td style="height: 120px; display: flex;" (click)="openDialog(tweet)" >
+                                        <img src="{{tweet.profile_image_url_https}}" alt="" class="circle-image zoom">
+                                        &nbsp;
+                                        <div class="tweet-description zoom1">
+                                            <h4>{{tweet.name}}</h4>
+                                            <p>
+                                                {{tweet.tweet}}
+                                            </p>
+                                            <div>
+                                                {{tweet._dt}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8" style="text-align:left">No Record found.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </div>
+    </div>
+<!--//END OF ROW1//-->
+<!---->
+<!---->
+<!--START OF ROW 3-->
+<div class="row" *ngIf="!loading && datacontent">
+    <div class="col-md-12 col-xl-6 col-sm-12 col-lg-12 p-1 zoom1">
+        <div class="row">
+            <p-panel header="Sentiment Analysis" [toggleable]="true">
+                <div class="row">
+                    <div class="col-xl-4 col-sm-4 col-lg-4 col-md-4 zoom">
+                        <p-knob [(ngModel)]="positive" [size]="140" [readonly]="true" valueColor="Green" ></p-knob>
+                        <span style="margin-left: 42px;">Postive</span>
+                    </div>
+                    <div class="col-xl-4 col-sm-4 col-lg-4 col-md-4 zoom">
+                        <p-knob [(ngModel)]="neutral" [size]="140" [readonly]="true" valueColor="SlateGray" ></p-knob>
+                        <span style="margin-left: 42px;">Neutral</span>
+                    </div>
+                    <div class="col-xl-4 col-sm-4 col-lg-4 col-md-4 zoom">
+                        <p-knob [(ngModel)]="negative" [size]="140" [readonly]="true" valueColor="Red"></p-knob>
+                        <span style="margin-left: 42px;">Negative</span>
+                    </div>
+                </div>
+            </p-panel>
+            <div>
+                <div style="height: 300px;" class="col-xl-12 col-sm-12 col-lg-12 p-1" cdkDrag>
+                    <p-panel header="Top Trends" [toggleable]="true">
+                        <p-accordion >
+                            <p-accordionTab header="#ImrankhanPti">
+                                <p-chart type="pie" [data]="data" [options]="chartOptions"   [style]="{'width': '100%'}"></p-chart>
+                            </p-accordionTab>
+                            <p-accordionTab header="#CryptoNews">
+                                <p-chart type="pie" [data]="data5" [options]="chartOptions"   [style]="{'width': '100%'}"></p-chart>
+                            </p-accordionTab>
+                            <p-accordionTab header="#Dollar">
+                                <p-chart type="pie" [data]="data2" [options]="chartOptions"   [style]="{'width': '100%'}"></p-chart>
+                            </p-accordionTab>
+                        </p-accordion>
+                    </p-panel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-6 col-sm-12 col-lg-12 p-1" cdkDrag>
+        <p-panel header="Maps" [toggleable]="true">
+            <p-gmap [options]="options"  [overlays]=" overlays" [style]="{'width':'99%','height':'64vh'}" ></p-gmap>
+        </p-panel>
+    </div>
+</div>
+</div>
+<!--END OF ROW3-->
+<!---->
+<!---->
+<!--START OF MODAL-->
+<p-dialog  header="User Info" [(visible)]="display" [style]="{width: '65vw'}">
+        <ng-template pTemplate="body" let-tweet>
+            <div class="card-img">
+                <img class="banner-pic" src="assets/layout/images/banner.jpg" style="object-fit: cover;" height="200px"
+                     class="card-img-top" alt="...">
+                <img class="rounded-circle profileImg" width="120px" height="120px" src="assets/layout/images/profile.jpg" alt="">
+            </div>
+            <div class=" mt-2">
+                <div class=" mb-3">
+                    <div class="card-body mt-5">
+                        <div class="row">
+                            <div class="col-12 col-md-6 mt-4 left-side">
+                                <h3>{{"ALIZAFAR"}}</h3>
+                                <h5>{{"Bahria University"}}</h5>
+                                <h6>{{"Pakistan"}}</h6>
+                                <h5 class="mt-3">About:</h5>
+                                <h6> {{"SOFTWARE ENGINEER"}}</h6>
+                                <h6>{{"MASTERS"}}</h6>
+                            </div>
+                            <div class=" col-md-6 mt-4 right-side">
+                                <div>
+                                    <img width="34px" height="34px" src="assets\svgs\noun-building-1987259.svg"
+                                         alt="">
+                                    <p>Bahria University</p>
+                                </div>
+                                <div>
+                                    <img width="34px" height="34px" src="assets\svgs\noun-callendar-3855735.svg"
+                                         alt="">
+                                    <p> Date Of Birth{{"19/9/2000"}}</p>
+                                </div>
+                                <div>
+                                    <img width="34px" height="34px" src="assets\svgs\noun-people-1646651.svg" alt="">
+                                    <p> {{"20k"}}connections</p>
+                                </div>
+                                <div>
+                                    <img width="34px" height="34px" src="assets\svgs\noun-like-1122324.svg"
+                                         alt="">
+                                    <p>
+                                        {{"12k"}} Likes
+                                    </p>
+                                </div>
+                                <div>
+                                    <img width="34px" height="34px"
+                                         src="assets\svgs\noun-comment-1026803.svg" alt="">
+                                    <p>
+
+                                        {{"15k"}} Comments
+                                    </p>
+                                </div>
+                                <div>
+                                    <img width="34px" height="34px" src="assets\svgs\noun-replay-3949162.svg"
+                                         alt="">
+                                    <p>
+                                        {{"10"}} Replays
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <h5 class="mt-3">Most Impactable Tweet:</h5>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+</p-dialog>
+<p-toast position="bottom-center"></p-toast>
+<!--END OF MODAL-->
+<!---->
+<!--<div class="container"*ngIf="!datacontent">-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-12 text-center position-absolute top-50 start-50 translate-middle">-->
+<!--            <h1 class="">WELCOME TO ORCA</h1>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+

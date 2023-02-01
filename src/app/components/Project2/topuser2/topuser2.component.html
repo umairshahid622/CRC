@@ -1,0 +1,38 @@
+<div class="col-md-12 col-xl-12 col-sm-12 col-lg-12 p-1 zoom1" cdkDrag> <!-- created a column and used angular material draggable. -->
+    <div pDraggable="pnl"  dragHandle=".p-panel-titlebar">
+        <p-panel header="Top Users" [toggleable]="true"><!-- created a toggleable pannel using primeng -->
+            <p-table #dt [value]="customers" dataKey="id" id="table" selectionMode="multiple" styleClass="ui-table-customers" [rowHover]="true"
+                     [rows]="7" [showCurrentPageReport]="true"
+                     [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                     [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">TopUsers <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="status">likes Count <p-sortIcon field="likescount"></p-sortIcon></th>
+                        <th pSortableColumn="status">Retweets Count <p-sortIcon field="RetweetsCount"></p-sortIcon></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer>
+                    <tr class="ui-selectable-row">
+                        <td style="height: 70px; display: flex;">
+                            <img src="{{customer.picture}}" alt="" class="circle-image zoom" style="height: 50px!important; width: 50px!important;border-radius: 50%!important;">
+                            <span style="padding: 16px">{{customer.username}}</span>
+                        </td>
+                        <td>
+                            <span>{{customer.likes_count}}</span>
+                        </td>
+                        <td>
+                            <span>{{customer.retweet_count}}</span>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8" style="text-align:left">No Record found.</td>
+                    </tr>
+
+                </ng-template>
+            </p-table>
+        </p-panel>
+    </div>
+</div>

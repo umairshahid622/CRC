@@ -1,0 +1,24 @@
+<main>
+    <div class="col-md-12 d-flex justify-content-end" style='padding: 20px'>
+        <button pButton pRipple label="Logout" routerLink="/pages/login"></button>
+    </div>
+    <div class="container-fluid" style="margin-top: 33vh;">
+        <div class="row d-flex justify-content-between align-items-end">
+            <div class="col-12 col-sm-7 col-md-8">
+                <div class="d-flex category">
+                    <p (click)="selectCategory(item)" *ngFor="let item of category"
+                        [ngClass]="{'activeTab':item === selectedCategory}">
+                        {{item}}
+                    </p>
+                </div>
+                <input type="search" id="form1" class="form-control offsetLeft-2 myTextBox" (keydown.enter)="getinfo()"
+                    placeholder=" Search Here" (click)="getinfo()" [(ngModel)]="searchKey"
+                    style="margin-top: 0px;border-radius: 0px 18px 18px 18px" />
+            </div>
+            <div class=" col-12 col-sm-5 col-md-4">
+                <p-dropdown (onChange)="getDropDownValue()" [options]="searchTypes" [(ngModel)]="dropDownValue" class="col-md-12" optionLabel="title">
+                </p-dropdown>
+            </div>
+        </div>
+    </div>
+</main>

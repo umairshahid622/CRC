@@ -1,0 +1,39 @@
+<div class="search-bar">
+
+</div>
+<div class="row mt-4 d-flex justify-content-center">
+    <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-3" *ngFor="let item of finalData">
+        <div class="card">
+            <div class="card-img card-body scrollbar-hidden">
+                <img style="object-fit: cover;" width="80px" height="80px" *ngIf="item.img === 'None';else imgPortion"
+                    src="assets\download.jpeg" alt="">
+                <ng-template #imgPortion>
+                    <img width="80px" height="80px" class="rounded-circle"
+                        style="object-fit: cover; border-radius: 50%;" alt=".." class="user-image" src="{{item.img}}">
+                </ng-template>
+                <h5 class="name1 zoom1"> {{item.postdate}}</h5>
+                <p class="zoom1">{{item.posts}}</p>
+            </div>
+            <div class="container">
+                <hr>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <div>
+                    <img src="assets\svgs\trophy-svgrepo-com.svg" alt="">
+                    <p class="mt-3">{{item.awards}}</p>
+                    <p>awards</p>
+                </div>
+                <div>
+                    <img src="assets\svgs\vote-svgrepo-com.svg" alt="">                    
+                    <p class="mt-3">{{item.votes}}</p>
+                    <p>votes</p>
+                </div>
+                <div>
+                    <img src="assets/svgs/Comment.svg" alt="">
+                    <p class="mt-3">{{item.comments}}</p>
+                    <p>Comments</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

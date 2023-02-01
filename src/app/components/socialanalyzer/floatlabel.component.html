@@ -1,0 +1,49 @@
+<div class="col-md-12 topSearch">
+    <p-card>
+        <input type="text" class="form-control"  placeholder="Search Here" [(ngModel)]="search" (keydown.enter)="getData()" style="width: 100%;">
+        <i class="pi pi-search searchIcon" (click)="getData()"></i>
+    </p-card>
+</div>
+<!---->
+
+<div class="row full-height" style="padding: 0 0px;">
+    <div class="col-md-12 d-flex justify-content-center" *ngIf="isLoading" style="padding-top: 150px;">
+<!--        <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"-->
+<!--                           fill="var(&#45;&#45;surface-ground)" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>-->
+        <div class="loader"></div>
+    </div>
+    <div class="row pt-20" *ngIf="!isLoading">
+        <div class="col-md-4 col-xl-3 zoom col-sm-12" *ngFor="let product of customers" cdkDrag>
+            <div class="card myCard " style="margin: 5px 10px;">
+                <div class="iconDiv">
+                    S
+                </div>
+                <div class="cardContent">
+                    <a href="{{product.link}}" target="{{product.link}}" style="margin-left: 7px">{{product.username}}</a><br>
+                    <label style="color: gray;padding-left: 0px;padding-top: 20px;">{{"Rank:"}}{{product.rank}}</label>
+                    <label style="color: gray;padding-left: 20px;padding-top: 20px;">{{"Rate:"}}{{product.rate}}</label>
+                    <label style="color: gray;padding-left: 10px;padding-top: 20px;">{{"Status:"}}{{product.status}}</label>
+                    <br><br>
+                    <p style="color: #333333;font-size: 14px;word-wrap: break-word;font-family: 'Montserrat', sans-serif">{{"Text:"}} {{product.text}}</p>
+                    <a href="{{product.links}}" target="{{product.links}}"style="font-size: 12.5px!important;line-height: 16px !important;white-space: normal !important; word-wrap: break-word!important ; color:#00d3e9!important;">{{product.links}}</a><br>
+                    <label style="color: gray;padding-left: 0px;padding-top: 20px;">{{"content:"}} {{product.metadata[0].content}}</label><br>
+                    <label style="color: gray;padding-left: 0px;padding-top: 20px;">{{"name:"}} {{product.metadata[0]?.name}}</label><br>
+                    <label style="color: gray;padding-left: 0px;padding-top: 20px;">{{"property:"}} {{product.metadata[0].property}}</label>
+                </div>
+                <div class="row" style="padding-left: 40px">
+                    <div class="col-sm-6 col-xl-6 col-lg-6 p-1" >
+                        <img src="assets/svgs/country.svg" style="height: 4vh;padding-left:0px"><br>
+                        <label style="color: gray; font-size: 12px!important; padding-left: 0px;">{{product.country}}</label>
+                    </div>
+                    <div class="col-sm-6 col-xl-6 col-lg-6 p-1" >
+                        <img src="assets/svgs/language.svg" style="height: 4vh;padding-left:0px"><br>
+                        <label style="color: gray; font-size: 12px!important; padding-left: 0px;">{{product.language}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 d-flex justify-content-center" *ngIf="!isLoading && customers.length === 0" style="padding-top: 150px;margin-left: 0vh;">
+        <span>No record Found</span>
+    </div>
+</div>

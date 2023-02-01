@@ -1,0 +1,13 @@
+:host::ng-deep {
+    .topSearch {
+        margin-bottom: 30px;
+
+        .p-card-body {
+            height: 80px !important;
+
+            .p-card-content {
+                padding: 0 !important;
+            }
+        }
+    }
+}

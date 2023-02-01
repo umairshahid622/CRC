@@ -1,0 +1,114 @@
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+main {
+    position: relative;
+}
+video {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    right: 0;
+    left: 0;
+    z-index: -1;
+    object-fit: cover;
+}
+.content {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    padding: 10px;
+    background-color: transparent;
+    z-index: 1;
+    overflow-y: scroll;
+}
+.content .logo {
+    background-color: rgba(97, 112, 135, 0.5);
+    border-radius: 50%;
+    justify-self: center;
+    display: flex;
+    align-items: center !important;
+    justify-content: center;
+    padding-top: 0.5%;
+    /* padding: 5px;  */
+}
+input {
+    min-height: 59px;
+    max-height: 59px;
+    width: 100%;
+    padding: 0px 50px 0px 20px;
+    border: 2px solid #9ecaed;
+    border-radius: 0px 7px 7px 7px;
+    background-color: rgba(97, 112, 135, 0.5);
+}
+input:focus {
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+.search-field {
+    position: relative;
+}
+.search-field img {
+    position: absolute;
+    background-color: rgba(97, 112, 135, 0.1);
+    border-radius: 50%;
+    padding-top: 0.7%;
+    right: 10px;
+    top: 25%;
+}
+.my-dropdown {
+    /* display: flex; */
+    position: relative;
+    /* flex-direction: column; */
+}
+.dropDownSelect {
+    background-color: rgba(97, 112, 135, 0.5);
+    border: 2px solid #9ecaed;
+    border-radius: 7px;
+    padding: 0px 10px;
+    align-items: center !important;
+    min-height: 59px;
+    display: flex;
+    justify-content: space-between;
+}
+.dropDownSelect img {
+    filter: invert(78%) sepia(21%) saturate(571%) hue-rotate(170deg)
+    brightness(99%) contrast(88%);
+    padding-top: 3%;
+}
+.dropdownOptions {
+    background-color: rgba(97, 112, 135, 0.5);
+    border: 2px solid #9ecaed;
+    border-radius: 7px;
+    padding: 0px 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 60px;
+    width: 100%;
+}
+
+.my-tabs div p {
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 15px;
+    //border-bottom: none !important;
+    //border: 2px solid transparent;
+}
+.active-tab {
+    border-radius: 12px 12px 0px 0px;
+    color: #9ecaed;
+    border: 2px solid #9ecaed !important;
+    border-bottom: none !important;
+    /* background-color: white; */
+}
+
+
